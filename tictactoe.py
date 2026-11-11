@@ -79,3 +79,14 @@ def best_move(board, mark):
             best_score = score
             best_index = move
     return best_index
+
+
+def render_board(board):
+    """Render the board as a three-row text grid."""
+    validate(board)
+    rows = []
+    for start in range(0, 9, 3):
+        rows.append(" " + " | ".join(board[start:start + 3]))
+        if start < 6:
+            rows.append("---+---+---")
+    return "\n".join(rows)

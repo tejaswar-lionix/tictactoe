@@ -58,5 +58,23 @@ class TicTacToeTests(unittest.TestCase):
         self.assertEqual(board, before)
 
 
+class RenderTests(unittest.TestCase):
+    def test_render_board(self):
+        from tictactoe import render_board
+
+        board = ["X", " ", "O", " ", "X", " ", " ", " ", "O"]
+        rendered = render_board(board)
+        lines = rendered.splitlines()
+        self.assertEqual(len(lines), 5)
+        self.assertEqual(lines[0], " X |   | O")
+        self.assertEqual(lines[1], "---+---+---")
+
+    def test_render_rejects_bad_board(self):
+        from tictactoe import render_board
+
+        with self.assertRaises(ValueError):
+            render_board(["X"])
+
+
 if __name__ == "__main__":
     unittest.main()
