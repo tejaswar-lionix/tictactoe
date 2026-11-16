@@ -27,6 +27,15 @@ def winner(board):
     return None
 
 
+def winner_line(board):
+    validate(board)
+    for line in WIN_LINES:
+        first, second, third = line
+        if board[first] != " " and board[first] == board[second] == board[third]:
+            return line
+    return None
+
+
 def is_draw(board):
     return winner(board) is None and all(cell != " " for cell in board)
 
