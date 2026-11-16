@@ -70,6 +70,37 @@ class TicTacToeTests(unittest.TestCase):
         self.assertIn(best_move(board, "X"), (0, 2, 4, 6, 8))
 
 
+class WinnerLineTests(unittest.TestCase):
+    def test_row_win(self):
+        from tictactoe import winner_line
+
+        board = ["X", "X", "X", "O", "O", " ", " ", " ", " "]
+        self.assertEqual(winner_line(board), (0, 1, 2))
+
+    def test_column_win(self):
+        from tictactoe import winner_line
+
+        board = ["O", "X", " ", "O", "X", " ", "O", " ", " "]
+        self.assertEqual(winner_line(board), (0, 3, 6))
+
+    def test_diagonal_win(self):
+        from tictactoe import winner_line
+
+        board = ["X", "O", " ", " ", "X", "O", " ", " ", "X"]
+        self.assertEqual(winner_line(board), (0, 4, 8))
+
+    def test_no_winner(self):
+        from tictactoe import winner_line
+
+        self.assertIsNone(winner_line(new_board()))
+
+    def test_invalid_board_raises(self):
+        from tictactoe import winner_line
+
+        with self.assertRaises(ValueError):
+            winner_line(["X"])
+
+
 class ReplayTests(unittest.TestCase):
     def test_empty_list_returns_new_board(self):
         from tictactoe import replay
