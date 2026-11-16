@@ -57,6 +57,18 @@ class TicTacToeTests(unittest.TestCase):
         best_move(board, "O")
         self.assertEqual(board, before)
 
+    def test_best_move_alpha_beta_keeps_win_block_and_board(self):
+        winning_board = ["X", "X", " ", "O", "O", " ", " ", " ", " "]
+        self.assertEqual(best_move(winning_board, "X"), 2)
+        blocking_board = ["X", "X", " ", "O", " ", " ", " ", " ", " "]
+        before = list(blocking_board)
+        self.assertEqual(best_move(blocking_board, "O"), 2)
+        self.assertEqual(blocking_board, before)
+
+    def test_best_move_empty_board_picks_center_or_corner(self):
+        board = new_board()
+        self.assertIn(best_move(board, "X"), (0, 2, 4, 6, 8))
+
 
 class RenderTests(unittest.TestCase):
     def test_render_board(self):
