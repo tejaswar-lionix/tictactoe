@@ -48,6 +48,18 @@ def play(board, index, mark):
     return board
 
 
+def replay(moves, first="X"):
+    """Replay a sequence of move indices starting with the given mark."""
+    if first not in ("X", "O"):
+        raise ValueError("first must be X or O")
+    board = new_board()
+    mark = first
+    for index in moves:
+        play(board, index, mark)
+        mark = "O" if mark == "X" else "X"
+    return board
+
+
 def best_move(board, mark):
     validate(board)
     if mark not in ("X", "O"):
