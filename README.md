@@ -11,7 +11,7 @@ python3 -c "from tictactoe import *; b=new_board(); play(b, 4, 'X'); print(rende
 ## Features
 
 - Win, draw, and move validation
-- Unbeatable minimax opponent
+- Unbeatable minimax opponent with alpha-beta pruning
 - Text board rendering with render_board(board)
 
 ## Tests

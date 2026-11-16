@@ -54,7 +54,7 @@ def best_move(board, mark):
         raise ValueError("mark must be X or O")
     opponent = "O" if mark == "X" else "X"
 
-    def minimax(state, current):
+    def minimax(state, current, alpha, beta):
         win = winner(state)
         if win == mark:
             return 1
@@ -62,18 +62,31 @@ def best_move(board, mark):
             return -1
         if all(cell != " " for cell in state):
             return 0
-        scores = []
+        if current == mark:
+            score = -2
+            for move in available_moves(state):
+                state[move] = current
+                score = max(score, minimax(state, opponent, alpha, beta))
+                state[move] = " "
+                alpha = max(alpha, score)
+                if alpha >= beta:
+                    break
+            return score
+        score = 2
         for move in available_moves(state):
             state[move] = current
-            scores.append(minimax(state, opponent if current == mark else mark))
+            score = min(score, minimax(state, mark, alpha, beta))
             state[move] = " "
-        return max(scores) if current == mark else min(scores)
+            beta = min(beta, score)
+            if alpha >= beta:
+                break
+        return score
 
     best_score = -2
     best_index = None
     for move in available_moves(board):
         board[move] = mark
-        score = minimax(board, opponent)
+        score = minimax(board, opponent, -2, 2)
         board[move] = " "
         if score > best_score:
             best_score = score
