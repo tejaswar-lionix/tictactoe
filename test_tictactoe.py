@@ -70,6 +70,39 @@ class TicTacToeTests(unittest.TestCase):
         self.assertIn(best_move(board, "X"), (0, 2, 4, 6, 8))
 
 
+class ReplayTests(unittest.TestCase):
+    def test_empty_list_returns_new_board(self):
+        from tictactoe import replay
+
+        self.assertEqual(replay([]), new_board())
+
+    def test_sequence_produces_expected_board(self):
+        from tictactoe import replay
+
+        board = replay([4, 0, 8, 2, 6])
+        self.assertEqual(
+            board,
+            ["O", " ", "O", " ", "X", " ", "X", " ", "X"],
+        )
+
+    def test_custom_first_mark(self):
+        from tictactoe import replay
+
+        self.assertEqual(replay([0], first="O")[0], "O")
+
+    def test_occupied_move_raises(self):
+        from tictactoe import replay
+
+        with self.assertRaises(ValueError):
+            replay([0, 0])
+
+    def test_out_of_range_raises(self):
+        from tictactoe import replay
+
+        with self.assertRaises(ValueError):
+            replay([9])
+
+
 class RenderTests(unittest.TestCase):
     def test_render_board(self):
         from tictactoe import render_board
