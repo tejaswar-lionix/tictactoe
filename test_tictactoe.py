@@ -101,6 +101,39 @@ class WinnerLineTests(unittest.TestCase):
             winner_line(["X"])
 
 
+class EvaluateTests(unittest.TestCase):
+    def test_empty_board_is_zero(self):
+        from tictactoe import evaluate
+
+        self.assertEqual(evaluate(new_board(), "X"), 0)
+
+    def test_mark_line_is_positive(self):
+        from tictactoe import evaluate
+
+        board = ["X", "X", "X", "O", "O", " ", " ", " ", " "]
+        self.assertEqual(evaluate(board, "X"), 10)
+
+    def test_opponent_line_is_negative(self):
+        from tictactoe import evaluate
+
+        board = ["O", "O", "O", "X", "X", " ", " ", " ", " "]
+        self.assertEqual(evaluate(board, "X"), -10)
+
+    def test_mixed_lines_cancel(self):
+        from tictactoe import evaluate
+
+        board = ["X", "X", "X", "O", "O", "O", " ", " ", " "]
+        self.assertEqual(evaluate(board, "X"), 0)
+
+    def test_validates_board_and_mark(self):
+        from tictactoe import evaluate
+
+        with self.assertRaises(ValueError):
+            evaluate(["X"], "X")
+        with self.assertRaises(ValueError):
+            evaluate(new_board(), "Z")
+
+
 class ReplayTests(unittest.TestCase):
     def test_empty_list_returns_new_board(self):
         from tictactoe import replay

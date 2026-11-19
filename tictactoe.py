@@ -36,6 +36,21 @@ def winner_line(board):
     return None
 
 
+def evaluate(board, mark):
+    validate(board)
+    if mark not in ("X", "O"):
+        raise ValueError("mark must be X or O")
+    opponent = "O" if mark == "X" else "X"
+    score = 0
+    for first, second, third in WIN_LINES:
+        cells = (board[first], board[second], board[third])
+        if cells == (mark, mark, mark):
+            score += 10
+        elif cells == (opponent, opponent, opponent):
+            score -= 10
+    return score
+
+
 def is_draw(board):
     return winner(board) is None and all(cell != " " for cell in board)
 
