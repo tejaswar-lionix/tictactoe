@@ -139,3 +139,11 @@ def render_board(board):
         if start < 6:
             rows.append("---+---+---")
     return "\n".join(rows)
+
+
+def from_text(text):
+    """Parse a nine-cell board string, treating . - and _ as empty cells."""
+    cleaned = text.replace(".", " ").replace("-", " ").replace("_", " ").upper()
+    if len(cleaned) != 9:
+        raise ValueError("board must have 9 cells")
+    return validate(list(cleaned))
