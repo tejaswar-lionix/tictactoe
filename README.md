@@ -26,6 +26,10 @@ python3 -c "from tictactoe import *; print(evaluate(['X', 'X', 'X', 'O', 'O', ' 
 python3 -m unittest -q
 ```
 
+## Additional API
+
+- `from_text(text)` parses a nine-cell board string, treating `.`, `-`, and `_` as empty cells.
+
 ## License
 
 MIT

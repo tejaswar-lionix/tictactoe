@@ -185,5 +185,21 @@ class RenderTests(unittest.TestCase):
             render_board(["X"])
 
 
+class FromTextTests(unittest.TestCase):
+    def test_parses_dots_as_empty(self):
+        from tictactoe import from_text
+
+        self.assertEqual(
+            from_text("X.O...X.O"),
+            ["X", " ", "O", " ", " ", " ", "X", " ", "O"],
+        )
+
+    def test_rejects_wrong_length(self):
+        from tictactoe import from_text
+
+        with self.assertRaises(ValueError):
+            from_text("XO")
+
+
 if __name__ == "__main__":
     unittest.main()
